@@ -2,7 +2,9 @@
 
 const profileInfo = document.querySelector(".overview");
 const userName = "mabgray";
-const repoDisplay = document.querySelector(".repo-list");
+const repoList = document.querySelector(".repo-list");
+const repoSection = document.querySelector(".repos");
+const repoData = document.querySelector(".repo-data");
 
 
 const myGitHubAPI = async function(){
@@ -50,8 +52,24 @@ const showRepos = async function(repos){
     const item = document.createElement("li");
     item.classList.add("repo");
     item.innerHTML = `<h3>${repo.name}</h3>`;
-    repoDisplay.append(item);
+    repoList.append(item);
 
   }
+
+}
+
+repoList.addEventListener("click", function(e){
+  if(e.target.matches("h3")){
+    let repoName = e.target.innerText;
+    getRepoInfo(repoName);
+    console.log(repoName);
+  }
+});
+
+const getRepoInfo = async function(repoName){
+   const fetchInfo = await fetch(`https://api.github.com/repos/${userName}/${repoName}`);
+   const repoInfo = await fetchInfo.json();
+   console.log(repoInfo);
+
 
 }
