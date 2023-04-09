@@ -5,7 +5,7 @@ const userName = "mabgray";
 const repoList = document.querySelector(".repo-list");
 const repoSection = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
-const backToRepoBtn = document.querySelector(".view-repos hide");
+const backToRepoBtn = document.querySelector(".view-repos");
 const filterInput = document.querySelector(".filter-repos");
 
 
@@ -51,6 +51,7 @@ const myGitRepos = async function(){
 
 const showRepos = async function(repos){
   for(const repo of repos){
+    filterInput.classList.remove("hide");
     const item = document.createElement("li");
     item.classList.add("repo");
     item.innerHTML = `<h3>${repo.name}</h3>`;
@@ -94,10 +95,37 @@ const showRepoInfo = function(repoInfo, languages){
   const div = document.createElement("div");
   div.innerHTML = `
   <h3>Name: ${repoInfo.name}</h3>
-  <p>Description: ${repoInfo.description}</p>
+  <p>Description: ${repoInfo.description}</p
   <p>Default Branch: ${repoInfo.default_branch}</p>
   <p>Languages: ${languages.join(", ")}</p>
   <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`;
   repoData.append(div);
+  backToRepoBtn.classList.remove("hide");
 
 }
+
+backToRepoBtn.addEventListener("click", function(){
+  repoSection.classList.remove("hide");
+  repoData.classList.add("hide");
+  backToRepoBtn.classList.add("hide");
+});
+
+filterInput.addEventListener("input", function(e){
+  let searchText = e.target.value;
+  //console.log(searchText);
+  let repos = document.querySelectorAll(".repo");
+  
+  let searchTextLower = searchText.toLowerCase();
+    
+  for(let repo of repos){
+    let reposLower = repo.innerText.toLowerCase();
+    if(searchTextLower.includes(reposLower)){
+      repo.classList.remove("hide");
+    } else {
+      repo.classList.add("hide");
+    }
+  }
+
+
+    
+});
