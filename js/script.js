@@ -5,6 +5,8 @@ const userName = "mabgray";
 const repoList = document.querySelector(".repo-list");
 const repoSection = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
+const backToRepoBtn = document.querySelector(".view-repos hide");
+const filterInput = document.querySelector(".filter-repos");
 
 
 const myGitHubAPI = async function(){
