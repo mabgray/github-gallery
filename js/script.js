@@ -68,7 +68,7 @@ repoList.addEventListener("click", function(e){
     console.log(repoName);
   }
 });
-
+//after an h3 is clicked on 
 const getRepoInfo = async function(repoName){
    const fetchInfo = await fetch(`https://api.github.com/repos/${userName}/${repoName}`);
    const repoInfo = await fetchInfo.json();
@@ -83,7 +83,7 @@ const getRepoInfo = async function(repoName){
     languages.push(language);
    }
 
-   console.log(languages);
+   
    showRepoInfo(repoInfo, languages);
 }
 
@@ -119,7 +119,9 @@ filterInput.addEventListener("input", function(e){
     
   for(let repo of repos){
     let reposLower = repo.innerText.toLowerCase();
-    if(searchTextLower.includes(reposLower)){
+    
+    if(reposLower.includes(searchTextLower)){
+    
       repo.classList.remove("hide");
     } else {
       repo.classList.add("hide");
